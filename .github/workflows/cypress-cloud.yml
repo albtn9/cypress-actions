@@ -6,15 +6,19 @@ on:
       spec:
          description: Run by cypress command line
          default: cypress/e2e/*
+
+env:
+  CYPRESS_CI_BUILD_ID: ${{ github.run_id }}-${{ github.run_attempt }}
+
 jobs:
   cypress-e2e-electron:
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:node18.12.0-chrome103-ff107
       options: --user 1001
+
     steps:
-      - name: Get code
-        uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.0
 
       - name: Cypress run
         uses: cypress-io/github-action@v6.5.0
@@ -23,6 +27,7 @@ jobs:
           browser: electron
           record: true
           group: UI Electron
+          ci-build-id: ${{ env.CYPRESS_CI_BUILD_ID }}
           spec: ${{ github.event.inputs.spec }}
         env:
           CYPRESS_RECORD_KEY: 73dfd449-02f1-4db9-9ee1-e85237f6dd13
@@ -34,9 +39,9 @@ jobs:
     container:
       image: cypress/browsers:node18.12.0-chrome103-ff107
       options: --user 1001
+
     steps:
-      - name: Get code
-        uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.0
 
       - name: Cypress run
         uses: cypress-io/github-action@v6.5.0
@@ -45,6 +50,7 @@ jobs:
           browser: chrome
           record: true
           group: UI Chrome
+          ci-build-id: ${{ env.CYPRESS_CI_BUILD_ID }}
           spec: ${{ github.event.inputs.spec }}
         env:
           CYPRESS_RECORD_KEY: 73dfd449-02f1-4db9-9ee1-e85237f6dd13
@@ -56,9 +62,9 @@ jobs:
     container:
       image: cypress/browsers:node18.12.0-chrome103-ff107
       options: --user 1001
+
     steps:
-      - name: Get code
-        uses: actions/checkout@v6.0.0
+      - uses: actions/checkout@v6.0.0
 
       - name: Cypress run
         uses: cypress-io/github-action@v6.5.0
@@ -67,6 +73,7 @@ jobs:
           browser: firefox
           record: true
           group: UI Firefox
+          ci-build-id: ${{ env.CYPRESS_CI_BUILD_ID }}
           spec: ${{ github.event.inputs.spec }}
         env:
           CYPRESS_RECORD_KEY: 73dfd449-02f1-4db9-9ee1-e85237f6dd13
