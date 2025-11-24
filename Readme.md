@@ -1,4 +1,4 @@
-![poster](./.github/poster.png)
+<-- ![poster](./.github/poster.png) -->
 
 ## Sobre
 
